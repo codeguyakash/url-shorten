@@ -1,6 +1,12 @@
 const express = require("express");
-const { handGenerateUrl } = require("../controllers/url-controller");
+const {
+  handleGenerateUrl,
+  handleGetAnalytics,
+} = require("../controllers/url-controller.js");
 
 const router = express.Router();
 
-router.get("/url", handGenerateUrl);
+router.post("/", handleGenerateUrl);
+router.get("/analytics/:shortId", handleGetAnalytics);
+
+module.exports = router;

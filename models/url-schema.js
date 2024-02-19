@@ -12,9 +12,8 @@ const uslSchema = mongoose.Schema(
     },
     totalClicks: {
       type: String,
-      required: true,
     },
-    visitHistory: [{ timestamps: { type: Number } }],
+    visitHistory: [{ timestamps: String }],
   },
   { timestamps: true }
 );
