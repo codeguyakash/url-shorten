@@ -17,21 +17,28 @@ mongoose
 app.get("/", (req, res) => {
   res.status(200).send({ urlShorten: "Running" });
 });
-app.get("/:shortid", async (req, res) => {
-  const shortId = req.params.shortid;
-  const entry = await URL.findOneAndUpdate(
-    { shortId },
-    {
-      $push: {
-        visitHistory: {
-          timestamps: new Date().toLocaleString("en-IN"),
-        },
-      },
-    }
-  );
-  res.redirect(entry.redirectURL);
+app.get("/s", (req, res) => {
+  res.status(200).send({ urlShorten: "Running" });
 });
-app.use("/url", urlRoute);
+
+app.use("/api/v1/url", urlRoute);
+
+app.get("/api/v1/url/:shortid", async (req, res) => {
+  const shortId = req.params.shortid;
+  try {
+    const entry = await URL.findOneAndUpdate(
+      { shortId },
+      {
+        $push: {
+          visitHistory: {
+            timestamps: new Date().toLocaleString("en-IN"),
+          },
+        },
+      }
+    );
+    res.redirect(entry.redirectURL);
+  } catch (error) {}
+});
 
 app.listen(PORT, () => {
   console.log(`⚙ Server Running :: http://localhost:${PORT}`);
