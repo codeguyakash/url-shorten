@@ -21,9 +21,9 @@ app.get("/s", (req, res) => {
   res.status(200).send({ urlShorten: "Running" });
 });
 
-app.use("/api/v1/url", urlRoute);
+app.use("/", urlRoute);
 
-app.get("/api/v1/url/:shortid", async (req, res) => {
+app.get("/:shortid", async (req, res) => {
   const shortId = req.params.shortid;
   try {
     const entry = await URL.findOneAndUpdate(
