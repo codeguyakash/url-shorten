@@ -17,10 +17,7 @@ mongoose
   .catch((error) => console.log("☹ error", error));
 
 app.get("/", (req, res) => {
-  res.status(200).send({ urlShorten: "Running" });
-});
-app.get("/s", (req, res) => {
-  res.status(200).send({ urlShorten: "Running" });
+  res.status(200).json("Server-Running...");
 });
 
 app.use("/", urlRoute);
