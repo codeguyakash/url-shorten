@@ -7,12 +7,8 @@ const rateLimit = (req, res, next) => {
     const currentTime = Date.now();
     const timeDiff = currentTime - lastRequestTime;
 
-    console.log(`${currentTime}-${lastRequestTime}=${timeDiff}`);
-
-    if (timeDiff < 3000) {
-      return res
-        .status(429)
-        .json({ error: "Too many requests. Please try again later." });
+    if (timeDiff < 5000) {
+      return res.status(429).json({ error: "Too many requests." });
     }
   }
   userLastRequest[userId] = Date.now();
