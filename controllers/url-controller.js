@@ -1,8 +1,7 @@
 const URL = require("../models/url-schema");
 
 function generateRandomString(length) {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const characters = "abcdefghijklmnopqrstuvwxyz";
 
   let randomString = "";
   for (let i = 0; i < length; i++) {
