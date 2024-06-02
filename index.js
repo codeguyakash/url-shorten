@@ -12,11 +12,11 @@ const NUM_OF_CPU = os.cpus().length;
 app.use(express.json());
 app.use(cors());
 
+mongoose
+  .connect(`${process.env.MONGO_URI}`)
+  .then(() => console.log("[DB-Connected]"))
+  .catch((error) => console.log("☹ error", error));
 if (cluster.isPrimary) {
-  mongoose
-    .connect(`${process.env.MONGO_URI}`)
-    .then(() => console.log("[DB-Connected]"))
-    .catch((error) => console.log("☹ error", error));
   for (let i = 0; i < NUM_OF_CPU; i++) {
     cluster.fork();
   }

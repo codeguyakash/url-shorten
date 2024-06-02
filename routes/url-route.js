@@ -1,8 +1,8 @@
 const express = require("express");
 const {
   handleGenerateUrl,
-  handleGetAnalytics,
   visitHandler,
+  handleGetAnalytics,
 } = require("../controllers/url-controller.js");
 const rateLimit = require("../middleware/ratelimit.middleware.js");
 
