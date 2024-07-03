@@ -4,24 +4,25 @@ const copyBtnDiv = document.getElementById("copyBtnDiv");
 const showMsg = document.getElementById("showMsg");
 const api_url = "/";
 
+const domain = "https://akssh.xyz";
+
 shortBtn.disabled = false;
+
 shortBtn.addEventListener("click", function () {
   const urlInputValue = document.getElementById("urlInput").value;
 
   function isURL(url) {
     const regex =
-      /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})(:[0-9]{1,5})?(\/[\w\.-]*)*\/?(\\?[\w\s&.=:-]*)?(#[\w\-]*)?$/;
+      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(:[0-9]{1,5})?(\/[\w.-]*)*\/?(\?[\w\s&.=:-]*)?(#[\w-]*)?$/;
     return regex.test(url);
   }
 
-  const urlToShort = isURL(urlInputValue);
-
-  if (urlInputValue == "") {
-    return (showMsg.innerText = "Please paste your long url here 👇");
+  if (urlInputValue === "") {
+    return (showMsg.innerText = "Please paste your long URL here 👇");
   }
 
-  if (!urlToShort) {
-    return (showMsg.innerText = "Only valid url here 👇");
+  if (!isURL(urlInputValue)) {
+    return (showMsg.innerText = "Only valid URL here 👇");
   }
 
   const requestOptions = {
@@ -53,7 +54,7 @@ async function postData(url, options) {
     const data = await response.json();
     copyBtnDiv.classList.remove("hidden");
 
-    const newGenUrl = `${api_url}/${data.id}`;
+    const newGenUrl = `${domain}/${data.id}`;
     localStorage.setItem("newUrl", newGenUrl);
 
     if (newGenUrl) {
