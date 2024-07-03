@@ -4,7 +4,7 @@ const copyBtnDiv = document.getElementById("copyBtnDiv");
 const showMsg = document.getElementById("showMsg");
 const api_url = "/";
 
-const domain = "https://akssh.xyz";
+const domain = "https://url.codeguyakash.me";
 
 shortBtn.disabled = false;
 
