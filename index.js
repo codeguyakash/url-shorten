@@ -5,10 +5,12 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const os = require("os");
 const cluster = require("cluster");
+const path = require("path");
 
 const PORT = process.env.PORT || 3000;
 const NUM_OF_CPU = os.cpus().length;
 
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(cors());
 
@@ -29,6 +31,6 @@ if (cluster.isPrimary) {
   app.use("/", urlRoute);
 
   app.listen(PORT, () => {
-    console.log(`[⚙ Server]::PID[${process.pid}]`);
+    console.log(`[⚙ Server running... http://localhost:${PORT}]`);
   });
 }

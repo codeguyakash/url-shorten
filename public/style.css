@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+body {
+  background-color: #121214;
+  background-image: radial-gradient(#232323 1px, transparent 0);
+  background-size: 25px 25px;
+  background-position: -11px -11px;
+}
+.copied {
+  width: 28 !important;
+  height: 28 !important;
+}
