@@ -1,5 +1,5 @@
 const userLastRequest = {};
-const rateLimit = (req, res, next) => {
+const myRateLimit = (req, res, next) => {
   const userId = req.ip;
 
   if (userLastRequest.hasOwnProperty(userId)) {
@@ -7,11 +7,11 @@ const rateLimit = (req, res, next) => {
     const currentTime = Date.now();
     const timeDiff = currentTime - lastRequestTime;
 
-    if (timeDiff < 10000) {
+    if (timeDiff < 3000) {
       return res.status(429).json({ error: "Too many requests." });
     }
   }
   userLastRequest[userId] = Date.now();
   next();
 };
-module.exports = rateLimit;
+module.exports = myRateLimit;

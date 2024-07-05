@@ -1,5 +1,6 @@
-# url-shorten
+# URL Shorten
 
-visit endpoints GET : https://url-shorten.codeguyakash.me/{short-id}
+Visit :: https://url.codeguyakash.me
 
-short url endpoints POST : https://url-shorten.codeguyakash.me/ and send data in body JSON
+Run Tailwind-CSS :: npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+

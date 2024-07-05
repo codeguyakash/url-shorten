@@ -4,12 +4,12 @@ const {
   visitHandler,
   handleGetAnalytics,
 } = require("../controllers/url-controller.js");
-const rateLimit = require("../middleware/ratelimit.middleware.js");
+const myRateLimit = require("../middleware/ratelimit.middleware.js");
 
 const router = express.Router();
 
-router.post("/", rateLimit, handleGenerateUrl);
-router.get("/:shortid", rateLimit, visitHandler);
-router.get("/analytics/:shortId", rateLimit, handleGetAnalytics);
+router.post("/", myRateLimit, handleGenerateUrl);
+router.get("/:shortid", visitHandler);
+router.get("/analytics/:shortId", myRateLimit, handleGetAnalytics);
 
 module.exports = router;

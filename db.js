@@ -11,6 +11,5 @@ async function connectDB() {
     console.log(error);
   }
 }
-// connectDB();
 
 module.exports = connectDB;
