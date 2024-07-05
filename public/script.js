@@ -13,7 +13,7 @@ shortBtn.addEventListener("click", function () {
 
   function isURL(url) {
     const regex =
-      /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})(:[0-9]{1,5})?(\/[\w.-]*)*\/?(\?[\w\s&.=:-]*)?(#[\w-]*)?$/;
+      /^(https:\/\/|HTTP:\/\/)[\w.-]+(?:\.[\w.-]+)+(?:[\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/;
     return regex.test(url);
   }
 
