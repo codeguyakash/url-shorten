@@ -4,7 +4,8 @@ const copyBtnDiv = document.getElementById("copyBtnDiv");
 const showMsg = document.getElementById("showMsg");
 const api_url = "/";
 
-const domain = "https://url.codeguyakash.me";
+const domain2 = "https://url.codeguyakash.me";
+const domain = "https://url-shorten-jmqn.onrender.com";
 
 shortBtn.disabled = false;
 
