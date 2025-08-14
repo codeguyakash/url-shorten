@@ -1,8 +1,10 @@
-const URL = require("../models/url-schema");
+const URL = require('../models/url-schema');
 
+const HOST_URL =
+  process.env.HOST_URL || `http://localhost:${process.env.PORT || 3000}`;
 function generateRandomString(length) {
-  const characters = "abcdefghijklmnopqrstuvwxyz";
-  let randomString = "";
+  const characters = 'abcdefghijklmnopqrstuvwxyz';
+  let randomString = '';
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
     randomString += characters.charAt(randomIndex);
@@ -12,7 +14,7 @@ function generateRandomString(length) {
 const handleGenerateUrl = async (req, res) => {
   try {
     const body = req.body;
-    if (!body.url) return res.status(400).json({ error: "url is required" });
+    if (!body.url) return res.status(400).json({ error: 'url is required' });
 
     const shortId = generateRandomString(10);
 
@@ -22,10 +24,10 @@ const handleGenerateUrl = async (req, res) => {
       visitHistory: [],
     });
 
-    return res.json({ id: shortId });
+    return res.json({ id: shortId, url: `${HOST_URL}/${shortId}` });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 };
 
@@ -37,7 +39,7 @@ const visitHandler = async (req, res) => {
       {
         $push: {
           visitHistory: {
-            timestamps: new Date().toLocaleString("en-IN"),
+            timestamps: new Date().toLocaleString('en-IN'),
           },
         },
       },
@@ -47,7 +49,7 @@ const visitHandler = async (req, res) => {
       }
     );
 
-    if (!entry) throw new Error("Incorrect Short Id");
+    if (!entry) throw new Error('Incorrect Short Id');
 
     res.redirect(entry.redirectURL);
   } catch (error) {
