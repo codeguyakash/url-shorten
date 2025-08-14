@@ -6,35 +6,29 @@
     <link rel="icon" href="/assets/favicon.png" type="image/png" />
     <meta
       name="description"
-      content="Simplify your links with our URL shortener! Built with Node, Express, MongoDB, HTML, Tailwind CSS, and JavaScript."
-    />
+      content="Simplify your links with our URL shortener! Built with Node, Express, MongoDB, HTML, Tailwind CSS, and JavaScript." />
     <meta
       name="keywords"
-      content="URL shortener, link shortener, NodeJS, Express, MongoDB, HTML, Tailwind CSS, JavaScript"
-    />
+      content="URL shortener, link shortener, NodeJS, Express, MongoDB, HTML, Tailwind CSS, JavaScript" />
     <meta name="author" content="Akash(codeguyakash)" />
     <meta property="og:title" content="Your URL Shortener Tool" />
     <meta
       property="og:description"
-      content="Simplify your links with our URL shortener!"
-    />
+      content="Simplify your links with our URL shortener!" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://srturl.codeguyakash.me/" />
+    <meta property="og:url" content="https://url.codeguyakash.in/" />
     <meta
       property="og:image"
-      content="https://srturl.codeguyakash.me/og-image.png"
-    />
-    <link rel="canonical" href="https://srturl.codeguyakash.me/" />
+      content="https://url.codeguyakash.in/og-image.png" />
+    <link rel="canonical" href="https://url.codeguyakash.in/" />
     <link href="output.css" rel="stylesheet" />
     <title>🔗 URL Shortener</title>
   </head>
   <body>
     <section
-      class="h-[90vh] w-auto flex flex-col items-center justify-center mx-8"
-    >
+      class="h-[90vh] w-auto flex flex-col items-center justify-center mx-8">
       <h1
-        class="text-zinc-300 text-center text-4xl sm:text-6xl md:text-9xl font-bold"
-      >
+        class="text-zinc-300 text-center text-4xl sm:text-6xl md:text-9xl font-bold">
         URL Shortener
       </h1>
       <div class="mt-5 md:w-1/2 w-full">
@@ -44,28 +38,23 @@
           id="urlInput"
           type="text"
           placeholder="Paste your long url here..."
-          class="text-[#52525b] text-1xl rounded-md bg-transparent w-full py-4 px-6 border border-[#52525b] mt-5"
-        />
+          class="text-[#52525b] text-1xl rounded-md bg-transparent w-full py-4 px-6 border border-[#52525b] mt-5" />
         <button
           id="shortBtn"
           disabled
-          class="text-1xl font-normal rounded-md bg-zinc-300 w-full py-4 px-6 border my-5"
-        >
+          class="text-1xl font-normal rounded-md bg-zinc-300 w-full py-4 px-6 border my-5">
           SHORT URL
         </button>
         <div
           id="copyBtnDiv"
-          class="hidden bg-transparent h-14 border border-[#52525b] flex justify-between rounded-md"
-        >
+          class="hidden bg-transparent h-14 border border-[#52525b] flex justify-between rounded-md">
           <input
             type="text"
             id="newUrlInput"
-            class="bg-transparent w-full px-6 py-4 text-[#52525b] text-1xl"
-          />
+            class="bg-transparent w-full px-6 py-4 text-[#52525b] text-1xl" />
           <span
             id="copyBtn"
-            class="bg-zinc-300 text-black text-1xl font-normal px-6 py-4 rounded-tr-md rounded-br-md cursor-pointer"
-          >
+            class="bg-zinc-300 text-black text-1xl font-normal px-6 py-4 rounded-tr-md rounded-br-md cursor-pointer">
             COPY
           </span>
         </div>
