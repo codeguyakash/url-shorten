@@ -1,7 +1,7 @@
 const URL = require('../models/url-schema');
 
 const HOST_URL =
-  process.env.HOST_URL || `http://localhost:${process.env.PORT || 3000}`;
+  process.env.HOST_URL || `https://url-shorten-jmqn.onrender.com`;
 function generateRandomString(length) {
   const characters = 'abcdefghijklmnopqrstuvwxyz';
   let randomString = '';
