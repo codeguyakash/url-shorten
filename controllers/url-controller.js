@@ -1,3 +1,4 @@
+require('dotenv').config();
 const URL = require('../models/url-schema');
 
 const HOST_URL =
