@@ -25,6 +25,11 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
+(async () => {
+  const { ping } = await import('keepalive-server');
+  ping(60000, 'https://url-shorten-jmqn.onrender.com');
+})();
+
 mongoose
   .connect(`${process.env.MONGO_URI}`)
   .then(() => console.log(`DB Connected`))
