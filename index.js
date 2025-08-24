@@ -27,7 +27,7 @@ app.use(limiter);
 
 (async () => {
   const { ping } = await import('keepalive-server');
-  ping(60000, 'https://url-shorten-jmqn.onrender.com');
+  ping(86400000, 'https://url-shorten-jmqn.onrender.com');
 })();
 
 mongoose
