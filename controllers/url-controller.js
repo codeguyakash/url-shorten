@@ -2,7 +2,8 @@ require('dotenv').config();
 const URL = require('../models/url-schema');
 
 const HOST_URL =
-  process.env.HOST_URL || `https://url-shorten-jmqn.onrender.com`;
+  process.env.HOST_URL ?? `http://localhost:3000`;
+
 function generateRandomString(length) {
   const characters = 'abcdefghijklmnopqrstuvwxyz';
   let randomString = '';
