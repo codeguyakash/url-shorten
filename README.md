@@ -1,6 +1,6 @@
-# URL Shorten
+## URL Shorten
 
-Visit :: https://url.codeguyakash.me
+Visit :: https://ucga.vercel.app
 
-Run Tailwind-CSS :: npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+
 
