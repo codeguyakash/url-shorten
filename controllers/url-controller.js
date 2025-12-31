@@ -34,7 +34,9 @@ const handleGenerateUrl = async (req, res) => {
 };
 
 const visitHandler = async (req, res) => {
+  console.log("hit visit handler")
   const shortId = req.params.shortid;
+  console.log(shortId)
   try {
     const entry = await URL.findOneAndUpdate(
       { shortId },

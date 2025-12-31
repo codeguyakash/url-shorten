@@ -13,6 +13,11 @@ const PORT = process.env.PORT || 3000;
 const NUM_OF_CPU = os.cpus().length - 2;
 const isVercel = process.env.VERCEL === '1';
 
+// Trust proxy for Vercel (required for rate limiting to work correctly)
+if (isVercel) {
+  app.set('trust proxy', 1);
+}
+
 // Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -26,11 +31,46 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log(`DB Connected | PID: ${process.pid}`))
-  .catch((err) => console.log('DB Error:', err.message));
+// Connect to MongoDB with serverless-optimized settings
+const connectDB = async () => {
+  try {
+    // Check if already connected (important for serverless)
+    if (mongoose.connection.readyState === 1) {
+      console.log('DB Already Connected');
+      return;
+    }
+
+    const options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
+      socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
+      maxPoolSize: 10, // Maintain up to 10 socket connections
+      minPoolSize: 1, // Maintain at least 1 socket connection
+    };
+
+    await mongoose.connect(process.env.MONGO_URI, options);
+    console.log(`DB Connected | PID: ${process.pid}`);
+  } catch (err) {
+    console.error('DB Error:', err.message);
+    // Don't throw - let the app continue (connection will retry on next request)
+  }
+};
+
+// Connect to database
+connectDB();
+
+// Middleware to ensure DB connection before handling requests (for serverless)
+app.use(async (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    try {
+      await connectDB();
+    } catch (err) {
+      return res.status(503).json({ error: 'Database connection unavailable' });
+    }
+  }
+  next();
+});
 
 // Routes
 app.get('/', myRateLimit, (_, res) => {
