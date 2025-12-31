@@ -6,28 +6,33 @@ const api_url = '/';
 
 shortBtn.disabled = false;
 
+// ---- Only HTTPS Validator ----
+function isValidHttpsURL(input) {
+  try {
+    const url = new URL(input);
+    return url.protocol === "https:" && url.hostname && !url.hostname.includes(" ");
+  } catch {
+    return false;
+  }
+}
+// -----------------------------------
+
 shortBtn.addEventListener('click', function () {
   const urlInputValue = document.getElementById('urlInput').value;
 
-  function isURL(url) {
-    const regex =
-      /^(https:\/\/|HTTP:\/\/)[\w.-]+(?:\.[\w.-]+)+(?:[\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/;
-    return regex.test(url);
+  if (!urlInputValue) {
+    showMsg.innerText = 'Please paste your long URL here 👇';
+    return;
   }
 
-  if (urlInputValue === '') {
-    return (showMsg.innerText = 'Please paste your long URL here 👇');
-  }
-
-  if (!isURL(urlInputValue)) {
-    return (showMsg.innerText = 'Only valid URL here 👇');
+  if (!isValidHttpsURL(urlInputValue)) {
+    showMsg.innerText = 'Only valid HTTPS URLs allowed 👇';
+    return;
   }
 
   const requestOptions = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url: urlInputValue }),
   };
 
@@ -46,9 +51,8 @@ async function postData(url, options) {
     shortBtn.disabled = true;
 
     const response = await fetch(url, options);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
     const data = await response.json();
     copyBtnDiv.classList.remove('hidden');
 
@@ -73,7 +77,7 @@ copyBtn.addEventListener('click', async function () {
     await navigator.clipboard.writeText(
       document.getElementById('newUrlInput').value
     );
-    document.getElementById('copyBtn').innerText = 'COPIED!!';
+    copyBtn.innerText = 'COPIED!!';
     showMsg.innerText = 'COPIED 👍';
   } catch (error) {
     console.error('Copy failed:', error);

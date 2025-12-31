@@ -10,7 +10,8 @@ const myRateLimit = require('./middleware/ratelimit.middleware.js');
 const rateLimit = require('express-rate-limit');
 
 const PORT = process.env.PORT || 3000;
-const NUM_OF_CPU = os.cpus().length;
+const NUM_OF_CPU = os.cpus().length - 2;
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -22,19 +23,22 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
-
 app.use(limiter);
 
-mongoose
-  .connect(`${process.env.MONGO_URI}`)
-  .then(() => console.log(`DB Connected`))
-  .catch((error) => console.log('Database Connecting:', error.message));
-
 if (cluster.isPrimary) {
+  console.log(`Primary PID: ${process.pid}`);
+
   for (let i = 0; i < NUM_OF_CPU; i++) {
     cluster.fork();
   }
+
 } else {
+
+  mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => console.log(`DB Connected | Worker PID: ${process.pid}`))
+    .catch((err) => console.log('DB Error:', err.message));
+
   app.get('/', myRateLimit, (_, res) => {
     res.status(200).json('Server Running...');
   });
@@ -43,6 +47,6 @@ if (cluster.isPrimary) {
   app.use('/', urlRoute);
 
   app.listen(PORT, () => {
-    console.log(`server running http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT} | Worker PID: ${process.pid}`);
   });
 }
