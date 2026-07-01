@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { customAlphabet } = require('nanoid');
+const { customAlphabet } = require('nanoid/non-secure');
 
 const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
 
@@ -56,8 +56,6 @@ const visitHandler = async (req, res) => {
     return res.status(404).json({ error: error.message });
   }
 };
-
-module.exports = { handleGenerateUrl, visitHandler };
 
 const handleGetAnalytics = async (req, res) => {
   try {
