@@ -10,10 +10,7 @@ const customAlphabet = (alphabet, size) => {
   };
 };
 
-const nanoid = customAlphabet(
-  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-  6,
-);
+const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz", 6);
 
 const URL = require("../models/url-schema");
 
