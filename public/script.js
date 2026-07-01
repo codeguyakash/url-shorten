@@ -10,7 +10,7 @@ shortBtn.disabled = false;
 function isValidHttpsURL(input) {
   try {
     const url = new URL(input);
-    return url.protocol === "https:" && url.hostname && !url.hostname.includes(" ");
+    return url.protocol === "http:" && url.hostname && !url.hostname.includes(" ");
   } catch {
     return false;
   }

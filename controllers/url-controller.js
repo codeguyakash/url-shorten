@@ -1,24 +1,19 @@
 require('dotenv').config();
+const { customAlphabet } = require('nanoid');
+
+const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
+
 const URL = require('../models/url-schema');
 
 const HOST_URL =
-  process.env.HOST_URL ?? `http://localhost:3000`;
+  process.env.HOST_URL ?? `https://akssh.in`;
 
-function generateRandomString(length) {
-  const characters = 'abcdefghijklmnopqrstuvwxyz';
-  let randomString = '';
-  for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    randomString += characters.charAt(randomIndex);
-  }
-  return randomString;
-}
 const handleGenerateUrl = async (req, res) => {
   try {
     const body = req.body;
     if (!body.url) return res.status(400).json({ error: 'url is required' });
 
-    const shortId = generateRandomString(10);
+    const shortId = nanoid();
 
     await URL.create({
       shortId: shortId,
