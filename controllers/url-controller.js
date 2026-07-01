@@ -1,17 +1,28 @@
-require('dotenv').config();
-const { customAlphabet } = require('nanoid/non-secure');
+require("dotenv").config();
+const customAlphabet = (alphabet, size) => {
+  return () => {
+    let id = "";
+    let i = size;
+    while (i--) {
+      id += alphabet[(Math.random() * alphabet.length) | 0];
+    }
+    return id;
+  };
+};
 
-const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
+const nanoid = customAlphabet(
+  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+  6,
+);
 
-const URL = require('../models/url-schema');
+const URL = require("../models/url-schema");
 
-const HOST_URL =
-  process.env.HOST_URL ?? `https://akssh.in`;
+const HOST_URL = process.env.HOST_URL ?? `https://akssh.in`;
 
 const handleGenerateUrl = async (req, res) => {
   try {
     const body = req.body;
-    if (!body.url) return res.status(400).json({ error: 'url is required' });
+    if (!body.url) return res.status(400).json({ error: "url is required" });
 
     const shortId = nanoid();
 
@@ -24,31 +35,31 @@ const handleGenerateUrl = async (req, res) => {
     return res.json({ id: shortId, url: `${HOST_URL}/${shortId}` });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
 const visitHandler = async (req, res) => {
-  console.log("hit visit handler")
+  console.log("hit visit handler");
   const shortId = req.params.shortid;
-  console.log(shortId)
+  console.log(shortId);
   try {
     const entry = await URL.findOneAndUpdate(
       { shortId },
       {
         $push: {
           visitHistory: {
-            timestamps: new Date().toLocaleString('en-IN'),
+            timestamps: new Date().toLocaleString("en-IN"),
           },
         },
       },
       {
         new: true,
         projection: { redirectURL: 1 },
-      }
+      },
     );
 
-    if (!entry) throw new Error('Incorrect Short Id');
+    if (!entry) throw new Error("Incorrect Short Id");
 
     res.redirect(entry.redirectURL);
   } catch (error) {
