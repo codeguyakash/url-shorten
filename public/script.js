@@ -1,10 +1,10 @@
+const shortenForm = document.getElementById("shortenForm");
 const shortBtn = document.getElementById("shortBtn");
 const copyBtn = document.getElementById("copyBtn");
 const copyBtnDiv = document.getElementById("copyBtnDiv");
 const showMsg = document.getElementById("showMsg");
 const api_url = "/";
 
-shortBtn.disabled = false;
 
 // ---- Only HTTPS Validator ----
 function isValidHttpsURL(input) {
@@ -19,16 +19,17 @@ function isValidHttpsURL(input) {
 }
 // -----------------------------------
 
-shortBtn.addEventListener("click", function () {
+shortenForm.addEventListener("submit", function (event) {
+  event.preventDefault();
   const urlInputValue = document.getElementById("urlInput").value;
 
   if (!urlInputValue) {
-    showMsg.innerText = "Please paste your long URL here 👇";
+    showMsg.innerText = "Add a URL to get started.";
     return;
   }
 
   if (!isValidHttpsURL(urlInputValue)) {
-    showMsg.innerText = "Only valid HTTPS URLs allowed 👇";
+    showMsg.innerText = "Please use a valid HTTPS URL.";
     return;
   }
 
@@ -56,19 +57,19 @@ async function postData(url, options) {
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
     const data = await response.json();
-    copyBtnDiv.classList.remove("hidden");
+    copyBtnDiv.classList.remove("is-hidden");
 
     const newGenUrl = data.url;
     localStorage.setItem("newUrl", newGenUrl);
 
     if (newGenUrl) {
       document.getElementById("newUrlInput").value = newGenUrl;
-      showMsg.innerText = "Generate Success 👍";
-      shortBtn.innerText = "SHORT URL";
+      showMsg.innerText = "Your short link is ready.";
+      shortBtn.innerHTML = 'Shorten another <span aria-hidden="true">→</span>';
     }
   } catch (error) {
-    showMsg.innerText = "Error generating URL. Please try again.";
-    shortBtn.innerText = "Try Again";
+    showMsg.innerText = "Something went wrong. Please try again.";
+    shortBtn.innerHTML = 'Try again <span aria-hidden="true">→</span>';
   } finally {
     shortBtn.disabled = false;
   }
@@ -79,10 +80,10 @@ copyBtn.addEventListener("click", async function () {
     await navigator.clipboard.writeText(
       document.getElementById("newUrlInput").value,
     );
-    copyBtn.innerText = "COPIED!!";
-    showMsg.innerText = "COPIED 👍";
+    copyBtn.innerText = "Copied";
+    showMsg.innerText = "Copied to your clipboard.";
   } catch (error) {
     console.error("Copy failed:", error);
-    showMsg.innerText = "Failed to copy. Try manually.";
+    showMsg.innerText = "Copy failed. You can select the link manually.";
   }
 });
