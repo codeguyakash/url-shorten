@@ -87,3 +87,6 @@ copyBtn.addEventListener("click", async function () {
     showMsg.innerText = "Copy failed. You can select the link manually.";
   }
 });
+const year = new Date().getFullYear();
+
+console.log(`COPYRIGHT © ${year} | Developed by CODEGUYAKASH | All rights reserved.`);
