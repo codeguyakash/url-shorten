@@ -26,6 +26,8 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/url-shortener";
+
 const connectDB = async () => {
   try {
     if (mongoose.connection.readyState === 1) {
@@ -33,7 +35,7 @@ const connectDB = async () => {
       return;
     }
 
-    await mongoose.connect(process.env.MONGO_URI, {
+    await mongoose.connect(MONGO_URI, {
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
       maxPoolSize: 10,
