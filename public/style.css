@@ -4,7 +4,7 @@ body { margin: 0; background: var(--background); color: var(--foreground); font-
 button, input { font: inherit; }
 a { color: inherit; }
 .site-shell { max-width: 960px; margin: 0 auto; padding: 0 24px; }
-.topbar { display: flex; align-items: center; justify-content: space-between; min-height: 64px; border-bottom: 1px solid var(--border); }
+.topbar { display: flex; align-items: center; justify-content: space-between; min-height: 64px; }
 .brand { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; text-decoration: none; }
 .brand-mark { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 5px; background: var(--primary); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: -.08em; }
 .nav-link { color: var(--muted); font-size: 12px; text-decoration: none; }
